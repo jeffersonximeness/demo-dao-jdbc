@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -12,6 +13,7 @@ public class Program {
 
 	public static void main(String[] args) {
 		SellerDao sellerDao = DaoFactory.createSellerDao();
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
 		System.out.println("-------TEST 1: seller FindById-------");
 		Seller seller1 = sellerDao.findById(3);
@@ -38,7 +40,7 @@ public class Program {
 		System.out.println("Inserted! New id = " + seller2.getId());
 		
 		System.out.println("\n-------TEST 5: seller update-------");
-		seller2 = sellerDao.findById(10);
+		seller2 = sellerDao.findById(2);
 		seller2.setName("Gregory X");
 		sellerDao.update(seller2);
 		System.out.println("Updated! " + seller2);
@@ -47,11 +49,38 @@ public class Program {
 		sellerDao.deleteById(11);
 		System.out.println("Deleted!");
 		
-		System.out.println("\n-------FindAll-------");
+		System.out.println("\n-------TEST 7: FindAll-------");
 		listSellers = sellerDao.findAll();
 		
 		for (Seller seller : listSellers) {
 			System.out.println(seller);
+		}
+		
+		System.out.println("\n-------TEST 8: department Insert-------");
+		department = new Department(null, "Development");
+		departmentDao.insert(department);
+		System.out.println("Inserted! New id = " + department.getId());
+		
+		System.out.println("\n-------TEST 9: department FindById-------");
+		department = departmentDao.findById(5);
+		System.out.println(department);
+		
+		System.out.println("\n-------TEST 10: department Update-------");
+		department = departmentDao.findById(10);
+		department.setName("Security");
+		departmentDao.update(department);
+		System.out.println("Updated! " + department);
+		
+		System.out.println("\n-------TEST 11: department DeleteById-------");
+		departmentDao.deleteById(5);
+		System.out.println("Deleted");
+		
+		System.out.println("\n-------TEST 12: department FinAll-------");
+		List<Department> listDep = departmentDao.findAll();
+		System.out.println("Deleted");
+		
+		for (Department dep : listDep) {
+			System.out.println(dep);
 		}
 	}
 
